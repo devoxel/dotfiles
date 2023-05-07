@@ -22,7 +22,16 @@ require("packer").init({
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
 
+  -- Use a nice netrw config (open with hyphen)
   use("tpope/vim-vinegar")
+
+  -- Guess indentation
+  use {
+    'nmac427/guess-indent.nvim',
+    config = function()
+	    require('guess-indent').setup()
+    end,
+  }
 
   -- LSP Config
   --- Collection of common configurations for the Nvim LSP client
@@ -136,6 +145,9 @@ local opts = {
       -- to enable rust-analyzer settings visit:
       -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
       ["rust-analyzer"] = {
+        procMacro = {
+          enable=true,
+        },
         -- enable clippy on save
         checkOnSave = {
           command = "clippy",
@@ -189,3 +201,13 @@ vim.wo.signcolumn = "yes"
 -- " 300ms of no cursor movement to trigger CursorHold
 -- set updatetime=300
 vim.opt.updatetime = 100
+
+-- View line numbers (relative)
+vim.o.number = true
+vim.o.relativenumber = true
+
+-- View tab characters
+vim.o.invlist = true
+vim.opt.listchars:append({
+  tab = "▷▷",
+})
