@@ -119,10 +119,30 @@ local function on_rs_attach(client, buffer)
     vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
 end
 
+-- View line numbers (relative)
+vim.o.number = true
+vim.o.relativenumber = true
+
+-- View tab characters
+vim.o.invlist = true
+vim.opt.listchars:append({
+  tab = "▷▷",
+})
+
+-- Have a fixed column for the diagnostics to appear in
+--- This removes the jitter when warnings/errors flow in from lsp
+vim.wo.signcolumn = "yes"
+
+-- Set updatetime for CursorHold
+vim.opt.updatetime = 100
+
+-- Set leader
+vim.g.mapleader = " "
+
 -- Configure LSP through rust-tools.nvim plugin.
 --- rust-tools will configure and enable certain LSP features for us.
 --- See https://github.com/simrat39/rust-tools.nvim#configuration
-local opts = {
+local lsp_opts = {
   tools = {
     runnables = {
       use_telescope = true,
@@ -157,7 +177,7 @@ local opts = {
   },
 }
 
-require("rust-tools").setup(opts)
+require("rust-tools").setup(lsp_opts)
 
 -- Setup nvim-cmp
 --- See https://github.com/hrsh7th/nvim-cmp#basic-configuration
@@ -193,21 +213,9 @@ cmp.setup({
   },
 })
 
---- have a fixed column for the diagnostics to appear in
--- this removes the jitter when warnings/errors flow in
-vim.wo.signcolumn = "yes"
-
--- " Set updatetime for CursorHold
--- " 300ms of no cursor movement to trigger CursorHold
--- set updatetime=300
-vim.opt.updatetime = 100
-
--- View line numbers (relative)
-vim.o.number = true
-vim.o.relativenumber = true
-
--- View tab characters
-vim.o.invlist = true
-vim.opt.listchars:append({
-  tab = "▷▷",
-})
+-- Setup telescope
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
