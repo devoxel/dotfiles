@@ -72,6 +72,9 @@ require("packer").startup(function(use)
     "nvim-telescope/telescope.nvim", tag = '0.1.1',
     requires = {'nvim-lua/plenary.nvim' },
   })
+
+  -- Color schemes
+  use("nanotech/jellybeans.vim")
 end)
 
 -- the first run will install packer and our plugins
@@ -219,3 +222,6 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+
+-- Color scheme
+vim.cmd([[ colorscheme jellybeans ]])
