@@ -32,4 +32,6 @@ fi
 
 if [ -x "$(command -v nvim)" ] ; then
     export EDITOR="nvim"
+else
+    echo "note: missing nvim"
 fi
