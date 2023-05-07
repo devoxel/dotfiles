@@ -1,7 +1,3 @@
-# This is Git's per-user configuration file.
 [user]
 	name = Aaron Delaney
 	email = devoxel@gmail.com
-# Please adapt and uncomment the following lines:
-#	name = apd
-#	email = apd@pop-os.localdomain
