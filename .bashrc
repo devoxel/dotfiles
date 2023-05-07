@@ -99,3 +99,21 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+if [ -x "$(command -v bat)" ]; then
+    # it's okay if fzf is missing here, this will be ignored
+    export FZF_CTRL_T_OPTS="
+      --preview 'bat -n --color=always {}'
+      --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+    alias cat='bat --paging=never'
+else
+    echo "missing bat"
+
+fi
+
+if [ -x "$(command -v fzf)" ] ; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+else
+    echo "missing fzf"
+fi
