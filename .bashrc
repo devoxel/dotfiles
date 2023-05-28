@@ -117,3 +117,5 @@ if [ -x "$(command -v fzf)" ] ; then
 else
     echo "missing fzf"
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
