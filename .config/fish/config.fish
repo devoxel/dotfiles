@@ -16,4 +16,5 @@ if status is-interactive
     alias ls "ls -A --color=auto --group-directories-first"
     # use git for config dotfiles - see https://www.atlassian.com/git/tutorials/dotfiles
     alias config "git --git-dir=/home/apd/.cfg/ --work-tree=/home/apd"
+    alias batman "bat -plman"
 end

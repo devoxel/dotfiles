@@ -10,28 +10,30 @@
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+	# include .bashrc if it exists
+	if [ -f "$HOME/.bashrc" ]; then
+		. "$HOME/.bashrc"
+	fi
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+if [ -d "$HOME/bin" ]; then
+	PATH="$HOME/bin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+if [ -d "$HOME/.local/bin" ]; then
+	PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -f "$HOME/.cargo/env" ] ; then
-    . "$HOME/.cargo/env"
+if [ -f "$HOME/.cargo/env" ]; then
+	. "$HOME/.cargo/env"
 fi
 
-if [ -x "$(command -v nvim)" ] ; then
-    export EDITOR="nvim"
+if [ -x "$(command -v nvim)" ]; then
+	export EDITOR="nvim"
 else
-    echo "note: missing nvim"
+	echo "note: missing nvim"
 fi
+
+if [ -e /home/apd/.nix-profile/etc/profile.d/nix.sh ]; then . /home/apd/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
