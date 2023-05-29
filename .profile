@@ -30,6 +30,10 @@ if [ -f "$HOME/.cargo/env" ]; then
 	. "$HOME/.cargo/env"
 fi
 
+if [ -f "/usr/local/go/bin" ]; then
+	export PATH="$PATH:/usr/local/go/bin"
+fi
+
 if [ -x "$(command -v nvim)" ]; then
 	export EDITOR="nvim"
 else

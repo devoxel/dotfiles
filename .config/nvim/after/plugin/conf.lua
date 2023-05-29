@@ -4,7 +4,7 @@ if not ok then
 	return
 end
 
-luasnip = require("luasnip")
+local luasnip = require("luasnip")
 
 cmp.setup({
 	snippet = {

@@ -5,8 +5,7 @@ end
 
 local lsp = zero.preset({})
 
-local on_attach = function(client, buffer)
-  print("attached")
+local on_attach = function(_, buffer)
   local o = function(desc)
     return {
       buffer = buffer,
@@ -14,13 +13,15 @@ local on_attach = function(client, buffer)
     }
   end
 
-  print("hey")
-  lsp.default_keymaps({buffer = buffer})
+  -- set default lsp keymaps
+  lsp.default_keymaps({ buffer = buffer })
+  -- format on save
+  lsp.buffer_autoformat()
 
   -- Code navigation and shortcuts
   vim.keymap.set("n", "<c-]>", vim.lsp.buf.definition, o("goto definition"))
   vim.keymap.set("n", "gD", vim.lsp.buf.implementation, o("goto definition"))
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, o("show implementations"))
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, o("show hover"))
   vim.keymap.set("n", "1gD", vim.lsp.buf.type_definition, o(""))
   vim.keymap.set("n", "<leader>lh", vim.lsp.buf.signature_help, o("help"))
   vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, o("references"))
@@ -42,5 +43,31 @@ local on_attach = function(client, buffer)
   vim.keymap.set("n", "<leader>l]", vim.diagnostic.goto_next, o("next diagnostic"))
 end
 
+-- setup keymaps
 lsp.on_attach(on_attach)
+
+-- get mason to download useful language servers
+lsp.ensure_installed({
+  'rust_analyzer',
+  'gopls',
+  'lua_ls',
+})
+
+
+
+-- per lsp configs
+local lspconfig = require('lspconfig')
+
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      diagnostics = {
+        -- HACK: should fix - get the language server to recognize the `vim` global
+        globals = { "vim" },
+      },
+    },
+  },
+})
+
+
 lsp.setup()

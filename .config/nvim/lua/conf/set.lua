@@ -26,3 +26,7 @@ vim.wo.signcolumn = "yes"
 
 -- Set updatetime for CursorHold
 vim.opt.updatetime = 100
+
+-- Timeout
+vim.o.timeout = true
+vim.o.timeoutlen = 300
